@@ -90,9 +90,9 @@ class HuggingFace(BaseModel):
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
         # A patch for llama when batch_padding = True
-        if 'decapoda-research/llama' in path or \
+        if 'llama' in path or \
                 (tokenizer_path and
-                 'decapoda-research/llama' in tokenizer_path):
+                 'llama' in tokenizer_path):
             self.logger.warning('We set new pad_token_id for LLaMA model')
             # keep consistent with official LLaMA repo
             # https://github.com/google/sentencepiece/blob/master/python/sentencepiece_python_module_example.ipynb  # noqa
@@ -116,7 +116,7 @@ class HuggingFace(BaseModel):
         self.model.eval()
 
         # A patch for llama when batch_padding = True
-        if 'decapoda-research/llama' in path:
+        if 'llama' in path:
             self.model.config.bos_token_id = 1
             self.model.config.eos_token_id = 2
             self.model.config.pad_token_id = self.tokenizer.pad_token_id
